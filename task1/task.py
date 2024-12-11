@@ -39,18 +39,20 @@ def get_descendants(relations, node):
     
     return descendants
 
+def main(path: str):
+    with open(path, 'r') as file:
+        tree = json.load(file)
 
-with open('./test.json', 'r') as file:
-    tree = json.load(file)
+    # Парсим дерево
+    relations = parse_tree(tree)
 
-# Парсим дерево
-relations = parse_tree(tree)
+    # Вывод таблицы связей
+    print("Таблица связей:")
+    print(relations)
 
-# Вывод таблицы связей
-print("Таблица связей:")
-print(relations)
+    # Получение братьев и потомков для узла 3
+    for node in ["1", "2","3","4","5","6","7","8"]:
+        print(f"Братья узла {node}: {get_siblings(relations, node)}")
+        print(f"Потомки узла {node}: {get_descendants(relations, node)}")
 
-# Получение братьев и потомков для узла 3
-node = "3"
-print(f"Братья узла {node}: {get_siblings(relations, node)}")
-print(f"Потомки узла {node}: {get_descendants(relations, node)}")
+main('./task1/test.json')
